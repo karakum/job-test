@@ -17,6 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title . ' ' . Yii::$app->formatter->asCurrency(Yii::$app->user->identity->balance)) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <p>Начальный баланс:<?= Yii::$app->formatter->asCurrency($begin) ?></p>
+    <p>Конечный баланс:<?= Yii::$app->formatter->asCurrency($end) ?></p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [

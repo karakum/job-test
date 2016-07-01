@@ -53,9 +53,14 @@ class BalanceController extends Controller
         $params['FlowsSearch']['user_id'] = Yii::$app->user->id;
         $dataProvider = $searchModel->search($params);
 
+        $begin = Flows::getBeginTotal(Yii::$app->user->identity);
+        $end = Flows::getEndTotal(Yii::$app->user->identity);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'begin' => $begin,
+            'end' => $end,
         ]);
     }
 
