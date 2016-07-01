@@ -114,6 +114,28 @@ class Flows extends ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
+    public static function getDebitTotal(Users $user)
+    {
+        return Flows::find()->andWhere(['user_id' => $user->id])->sum('debit');
+    }
+
+    public static function getCreditTotal(Users $user)
+    {
+        return Flows::find()->andWhere(['user_id' => $user->id])->sum('credit');
+    }
+
+    public static function getBeginTotal(Users $user)
+    {
+        $item = Flows::find()->andWhere(['user_id' => $user->id])->orderBy(['datetime' => SORT_ASC])->limit(1)->one();
+        return is_null($item) ? 0.0 : (double)$item->begin;
+    }
+
+    public static function getEndTotal(Users $user)
+    {
+        $item = Flows::find()->andWhere(['user_id' => $user->id])->orderBy(['datetime' => SORT_DESC])->limit(1)->one();
+        return is_null($item) ? 0.0 : (double)$item->end;
+    }
+
     /**
      * @inheritdoc
      * @return FlowsQuery the active query used by this AR class.

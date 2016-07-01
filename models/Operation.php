@@ -75,6 +75,28 @@ class Operation extends ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
+    public static function getDebitTotal(Users $user, Operation $operation)
+    {
+        return Flows::find()->andWhere(['operation_id' => $operation->id, 'user_id' => $user->id])->sum('debit');
+    }
+
+    public static function getCreditTotal(Users $user, Operation $operation)
+    {
+        return Flows::find()->andWhere(['operation_id' => $operation->id, 'user_id' => $user->id])->sum('credit');
+    }
+
+    public static function getBeginTotal(Users $user, Operation $operation)
+    {
+        $item = Flows::find()->andWhere(['operation_id' => $operation->id, 'user_id' => $user->id])->orderBy(['datetime' => SORT_ASC])->limit(1)->one();
+        return is_null($item) ? 0.0 : (double)$item->begin;
+    }
+
+    public static function getEndTotal(Users $user, Operation $operation)
+    {
+        $item = Flows::find()->andWhere(['operation_id' => $operation->id, 'user_id' => $user->id])->orderBy(['datetime' => SORT_DESC])->limit(1)->one();
+        return is_null($item) ? 0.0 : (double)$item->end;
+    }
+
     /**
      * @inheritdoc
      * @return OperationQuery the active query used by this AR class.
