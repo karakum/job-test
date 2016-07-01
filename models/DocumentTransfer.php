@@ -18,6 +18,7 @@ use Yii;
  *
  * @property Users $recipient
  * @property Users $user
+ * @property Operation $operation
  */
 class DocumentTransfer extends StatusActiveRecord
 {
@@ -41,6 +42,17 @@ class DocumentTransfer extends StatusActiveRecord
                 if ($user) {
                     $this->recipient_id = $user->id;
                 }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $this->status = self::STATUS_NOT_ACTIVE;
             }
             return true;
         }
@@ -168,6 +180,15 @@ class DocumentTransfer extends StatusActiveRecord
     public function getUser()
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOperation()
+    {
+        return $this->hasOne(Operation::className(), ['document_id' => 'id'])
+            ->andWhere(['document_type' => Operation::DOCUMENT_TYPE_TRANSFER]);
     }
 
     /**

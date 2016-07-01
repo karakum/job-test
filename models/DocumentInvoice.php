@@ -18,6 +18,7 @@ use Yii;
  *
  * @property Users $payer
  * @property Users $user
+ * @property Operation $operation
  */
 class DocumentInvoice extends StatusActiveRecord
 {
@@ -184,6 +185,15 @@ class DocumentInvoice extends StatusActiveRecord
     public function getUser()
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOperation()
+    {
+        return $this->hasOne(Operation::className(), ['document_id' => 'id'])
+            ->andWhere(['document_type' => Operation::DOCUMENT_TYPE_INVOICE]);
     }
 
     /**
