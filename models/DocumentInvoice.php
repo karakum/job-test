@@ -124,6 +124,7 @@ class DocumentInvoice extends StatusActiveRecord
     {
         return [
             [['user_id', 'payer_id', 'value'], 'required'],
+            [['payer_name'], 'required', 'on' => self::SCENARIO_USER],
             [['user_id', 'payer_id', 'status'], 'integer'],
             [['value'], 'number'],
             ['value', 'compare', 'compareValue' => 0, 'operator' => '>'],

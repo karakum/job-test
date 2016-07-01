@@ -118,7 +118,8 @@ class DocumentTransfer extends StatusActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'recipient_id', 'value', 'recipient_name'], 'required'],
+            [['user_id', 'recipient_id', 'value'], 'required'],
+            [['recipient_name'], 'required', 'on' => self::SCENARIO_USER],
             [['user_id', 'recipient_id', 'status'], 'integer'],
             [['value'], 'number'],
             ['value', 'compare', 'compareValue' => 0, 'operator' => '>'],
