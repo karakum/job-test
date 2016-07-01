@@ -21,10 +21,10 @@ class m160630_122830_create_flows extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'operation_id' => $this->integer()->notNull(),
-            'begin' => $this->decimal(10, 2)->notNull(),
+            'begin' => $this->decimal(20, 2)->notNull(),
             'debit' => $this->decimal(10, 2)->notNull(),
             'credit' => $this->decimal(10, 2)->notNull(),
-            'end' => $this->decimal(10, 2)->notNull(),
+            'end' => $this->decimal(20, 2)->notNull(),
             'datetime' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
         ], $tableOptions);
 

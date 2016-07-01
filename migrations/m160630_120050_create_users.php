@@ -22,7 +22,7 @@ class m160630_120050_create_users extends Migration
             'id' => $this->primaryKey(),
             'username' => $this->string(50)->notNull()->unique(),
             'authKey' => $this->string(64)->notNull(),
-            'balance' => $this->decimal(10, 2)->notNull()->defaultValue(0),
+            'balance' => $this->decimal(20, 2)->notNull()->defaultValue(0),
         ], $tableOptions);
 
     }

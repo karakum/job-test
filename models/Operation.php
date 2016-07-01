@@ -39,7 +39,7 @@ class Operation extends ActiveRecord
         return [
             [['user_id', 'document_id', 'document_type', 'value'], 'required'],
             [['user_id', 'document_id', 'document_type'], 'integer'],
-            [['value'], 'number'],
+            [['value'], 'number', 'min' => 0.01, 'max' => '99999999.99'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }

@@ -126,7 +126,7 @@ class DocumentInvoice extends StatusActiveRecord
             [['user_id', 'payer_id', 'value'], 'required'],
             [['payer_name'], 'required', 'on' => self::SCENARIO_USER],
             [['user_id', 'payer_id', 'status'], 'integer'],
-            [['value'], 'number'],
+            [['value'], 'number', 'min' => 0.01, 'max' => '99999999.99'],
             ['value', 'compare', 'compareValue' => 0, 'operator' => '>'],
             ['payer_id', function ($attribute, $params) {
                 if ($this->$attribute == $this->user_id) {

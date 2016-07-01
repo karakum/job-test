@@ -121,7 +121,7 @@ class DocumentTransfer extends StatusActiveRecord
             [['user_id', 'recipient_id', 'value'], 'required'],
             [['recipient_name'], 'required', 'on' => self::SCENARIO_USER],
             [['user_id', 'recipient_id', 'status'], 'integer'],
-            [['value'], 'number'],
+            [['value'], 'number', 'min' => 0.01, 'max' => '99999999.99'],
             ['value', 'compare', 'compareValue' => 0, 'operator' => '>'],
             ['recipient_id', function ($attribute, $params) {
                 if ($this->$attribute == $this->user_id) {
